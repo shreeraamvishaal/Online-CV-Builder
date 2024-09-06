@@ -1,5 +1,6 @@
 Online CV Builder web application - HCL Mini Project:
 Integrated with free open source (GEMINI 1.5 Flash) API key -To generate summary based on job title and experience.
+Allows users to create dynamic resume with the power of AI and export it as a pdf file.
 
 Project done by :
 - Shree raam Vishaal K.

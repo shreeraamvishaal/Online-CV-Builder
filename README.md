@@ -1,18 +1,24 @@
-Online CV Builder web application - HCL Mini Project.
+Online CV Builder web application - HCL Mini Project:
 Integrated with free open source (GEMINI 1.5 Flash) API key -To generate summary based on job title and experience.
+
 Project done by :
 - Shree raam Vishaal K.
 - Register Number: 42731073
 - Degree: BE-CSE-AI
 
-Tools and Frame works used :
+Technologies Used
+Frontend:
 - React
 - Vite
-- Javascript
-- Typescript
-- HTML/CSS
+- JavaScript & TypeScript
+- HTML & CSS
 - Tailwind CSS
-- Clerk authentication service by google for authentication of users
-- Gemini API key to integrate (Gemini 1.5 Flash - free and open source) - Generating summary based on job description
-- Strapi-MySQL database for backend
-- Shadcn component library for ui elements
+
+Backend:
+- Strapi (with MySQL)
+
+Authentication:
+-Clerk authentication service (Google-powered) integrated with API key
+
+AI-Integration:
+-Gemini 1.5 Flash API (Open-source) for AI-driven resume summaries

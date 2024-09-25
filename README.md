@@ -15,9 +15,6 @@ Frontend:
 - HTML & CSS
 - Tailwind CSS
 
-Backend:
-- Strapi (with MySQL)
-
 Authentication:
 -Clerk authentication service (Google-powered) integrated with API key
 

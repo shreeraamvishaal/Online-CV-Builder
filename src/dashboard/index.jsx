@@ -1,38 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import AddResume from './components/AddResume';
-import { useUser } from '@clerk/clerk-react';
-import GlobalApi from './../../service/GlobalApi';
-import ResumeCardItem from './components/ResumeCardItem';
 
 function Dashboard() {
-  const { user } = useUser();
-  const [resumeList, setResumeList] = useState([]); // Ensure resumeList is initialized as an empty array
+  const [resumeList, setResumeList] = useState([]); // Initialize resume list
+  const [error, setError] = useState(null); // State to handle errors
+
+  // Function to fetch resumes from local storage
+  const fetchResumesFromLocalStorage = () => {
+    try {
+      const storedResumes = JSON.parse(localStorage.getItem('resumes')) || [];
+      setResumeList(storedResumes);
+    } catch (err) {
+      console.error('Error retrieving resumes from localStorage:', err);
+      setError('Failed to load resumes.');
+    }
+  };
 
   useEffect(() => {
-    if (user) {
-      GetResumesList(); // Fetch resume list when user is available
-    }
-  }, [user]);
+    fetchResumesFromLocalStorage(); // Fetch resumes when component mounts
+  }, []);
 
-  /**
-   * Fetches the list of resumes for the logged-in user
-   */
-  const GetResumesList = () => {
-    if (user?.primaryEmailAddress?.emailAddress) {
-      GlobalApi.GetUserResumes(user.primaryEmailAddress.emailAddress)
-        .then((resp) => {
-          // Check if the response contains valid data and if it's an array
-          const resumes = resp?.data?.data;
-          if (Array.isArray(resumes)) {
-            setResumeList(resumes); // Set the resume list if data is valid
-          } else {
-            setResumeList([]); // Set an empty array if data is not valid
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching resumes:', error);
-          setResumeList([]); // Set an empty array in case of an error
-        });
+  // Handle adding a new resume to the list and local storage
+  const handleAddResume = (resume) => {
+    try {
+      const updatedList = [...resumeList, resume];
+      setResumeList(updatedList);
+      localStorage.setItem('resumes', JSON.stringify(updatedList)); // Store the updated list in local storage
+    } catch (err) {
+      console.error('Error storing resume to localStorage:', err);
+      setError('Failed to save the resume.');
     }
   };
 
@@ -40,24 +36,15 @@ function Dashboard() {
     <div className="p-10 md:px-20 lg:px-32">
       <h2 className="font-bold text-3xl">My Resume</h2>
       <p>Start Creating AI resume for your next Job role</p>
+
+      {error && <p className="text-red-500">{error}</p>} {/* Show error message if any */}
+
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-10">
-        <AddResume />
-        {resumeList && resumeList.length > 0 ? (
-          resumeList.map((resume, index) => (
-            <ResumeCardItem
-              resume={resume}
-              key={index}
-              refreshData={GetResumesList}
-            />
-          ))
-        ) : (
-          [1, 2, 3, 4].map((item, index) => (
-            <div
-              key={index}
-              className="h-[280px] rounded-lg bg-slate-200 animate-pulse"
-            ></div>
-          ))
-        )}
+        {/* Add resume button */}
+        <AddResume onAddResume={handleAddResume} />
+
+        {/* Display a placeholder to indicate the area where created resumes might be displayed later */}
+        {/* This could be left empty if not needed */}
       </div>
     </div>
   );

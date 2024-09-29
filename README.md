@@ -18,10 +18,11 @@ This project is an AI-powered CV builder that allows users to generate dynamic r
 - Tailwind CSS
 
 ### Backend
+- Node js
 - Clerk Authentication (integrated with Google-powered services)
 - Gemini 1.5 Flash API (Open-source, for AI-driven resume summaries)
 
 ## Project Developed By
 - **Name**: Shree Raam Vishaal K.
 - **Register Number**: 42731073
-- **Degree**: BE-CSE (Artificial Intelligence)
+- **Degree**: BE-CSE AI (Artificial Intelligence)
